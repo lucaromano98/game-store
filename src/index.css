@@ -1,0 +1,393 @@
+@import "tailwindcss";
+
+/* =========================
+   THEME TOKENS
+   ========================= */
+
+:root {
+  /* quasi-nero di base */
+  --bg-page-deep: #050509;
+
+  /* viola accent principale (violet-500-ish) */
+  --accent: #a855f7;
+
+  /* accent soft (violet-400-ish, più chiaro per hover e glow leggero) */
+  --accent-soft: #c084fc;
+
+  /* testo primario su dark */
+  --text-primary: #f8fafc; /* slate-50 */
+  --text-dim: #94a3b8;     /* slate-400 */
+  --text-accent: #c084fc;  /* violet-400 */
+
+  /* pannello vetro scuro */
+  --panel-bg: rgba(15, 10, 25, 0.55);
+  --panel-border: rgba(168, 85, 247, 0.28);
+
+  /* bordino di separazione tipo header/footer */
+  --frame-line: rgba(168, 85, 247, 0.2);
+}
+
+/* =========================
+   PAGE BACKGROUND
+   sfondo cyberpunk sobrio:
+   - nero profondo
+   - alone viola soft (radial)
+   - nessun glow sparato
+   ========================= */
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-page-deep);
+
+  /* layer 1: alone viola/magenta morbido tipo “energia” */
+  background-image:
+    radial-gradient(
+      circle at 20% 15%,
+      rgba(168, 85, 247, 0.18) 0%,
+      rgba(5, 5, 9, 0) 60%
+    ),
+    /* layer 2: gradiente verticale molto scuro */
+    linear-gradient(
+      to bottom,
+      #0a0712 0%,
+      rgba(10, 6, 18, 0.6) 40%,
+      #050509 100%
+    );
+
+  background-attachment: fixed;
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+}
+
+/* =========================
+   REUSABLE BUILDING BLOCKS
+   ========================= */
+
+/* pannello scuro con bordo viola sottile */
+.panel {
+  background-color: rgba(15, 10, 25, 0.55);
+  border: 1px solid rgba(168, 85, 247, 0.28);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(8px);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.8),
+    0 0 30px rgba(168, 85, 247, 0.15);
+}
+
+/* campo input / select stile cyberpunk pulito */
+.input-field {
+  width: 100%;
+  background-color: rgba(10,10,20,0.7);
+  border: 1px solid rgba(168,85,247,0.3);
+  border-radius: 0.5rem;
+  color: #f8fafc;
+  padding: 0.5rem 0.75rem; /* 8px 12px */
+  font-size: 0.875rem;     /* text-sm */
+  line-height: 1.25rem;
+  outline: none;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.input-field::placeholder {
+  color: #94a3b8; /* slate-400-ish */
+}
+.input-field:focus {
+  border-color: #c084fc; /* accent-soft */
+  box-shadow: 0 0 16px rgba(192, 132, 252, 0.4);
+}
+.input-field:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* testo grigino tenue */
+.text-dim {
+  color: #94a3b8;
+}
+
+
+/* Bottone primario (es. “Aggiungi al carrello”) */
+.btn-accent {
+  background-image: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    var(--accent-soft) 100%
+  );
+  color: #0a0a0a;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem; /* py-2 px-3 */
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+  transition: filter 0.15s;
+}
+.btn-accent:hover {
+  filter: brightness(1.08);
+}
+
+/* Piccola pill per tag piattaforma, badge numeri ecc */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 0.25rem 0.5rem; /* py-1 px-2 */
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1;
+  background-color: rgba(15, 15, 30, 0.8);
+  color: var(--text-accent);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  box-shadow: 0 0 12px rgba(168, 85, 247, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+/* Text helper */
+.text-dim {
+  color: var(--text-dim);
+  
+}/* pill piattaforma tipo "PS5", "PC", ecc */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem; /* rounded-md */
+  padding: 0.25rem 0.5rem; /* py-1 px-2 */
+  font-size: 0.7rem;
+  font-weight: 500;
+  line-height: 1;
+  background-color: rgba(15, 15, 30, 0.8);
+  color: var(--text-accent);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  backdrop-filter: blur(4px);
+}
+
+/* bottone "Aggiungi al carrello" */
+.btn-accent {
+  width: 100%;
+  background-image: linear-gradient(
+    90deg,
+    var(--accent) 0%,
+    var(--accent-soft) 100%
+  );
+  color: #0a0a0a;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem; /* py-2 px-3 */
+  font-size: 0.875rem;     /* text-sm */
+  line-height: 1.25rem;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(168, 85, 247, 0.2);
+  transition: filter 0.15s;
+  cursor: pointer;
+}
+.btn-accent:hover {
+  filter: brightness(1.08);
+}
+.btn-accent:active {
+  filter: brightness(0.95);
+}
+
+/* bottoncini + / - quantità nel carrello */
+.qty-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.75rem;      /* 28px */
+  height: 1.75rem;
+  border-radius: 0.5rem; /* rounded-lg */
+
+  background-color: rgba(10,10,20,0.7);
+  border: 1px solid rgba(168,85,247,0.3);
+
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.75rem;   /* text-xs-ish */
+  line-height: 1;
+  cursor: pointer;
+
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+.qty-btn:hover {
+  border-color: var(--accent-soft);
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
+}
+
+.qty-value {
+  min-width: 2ch;
+  text-align: center;
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1;
+}
+
+/* link testuali della riga alta (In tendenza / Preordini / ecc) */
+/* link della navbar top row */
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1rem;
+  color: var(--text-primary);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.nav-link:hover {
+  color: var(--accent);
+}
+
+/* pill azioni a destra (carrello / profilo) */
+.nav-action-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  background-color: rgba(15,10,25,0.55);
+  border: 1px solid rgba(168,85,247,0.28);
+  border-radius: 0.5rem;
+
+  padding: 0.5rem 0.75rem;
+
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1rem;
+
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.nav-action-pill:hover {
+  border-color: rgba(168,85,247,0.45);
+}
+
+/* bottone tondo arancione ricerca */
+.search-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  border-radius: 9999px;
+
+  background-image: radial-gradient(
+    circle at 30% 30%,
+    #ffb36b 0%,
+    #ff6a00 60%
+  );
+  color: #0a0a0a;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 12px 30px rgba(255,106,0,0.4);
+  border: none;
+  cursor: pointer;
+  transition: filter 0.15s;
+}
+.search-btn:hover {
+  filter: brightness(1.07);
+}
+
+/*
+  BARRE PIATTAFORME:
+  - stato FULL (navbar grande): pill centrale grossa, traslucida, con blur
+    dentro ci stanno i bottoni piattaforma senza pill singole
+*/
+.platform-bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 1rem;
+
+  background-color: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 0.75rem;
+  backdrop-filter: blur(8px);
+
+  padding: 0.75rem 1rem; /* py-3 px-4 */
+  box-shadow:
+    0 30px 60px rgba(0,0,0,0.8),
+    0 0 40px rgba(0,0,0,0.6);
+
+  color: var(--text-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1rem;
+
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.platform-bar::-webkit-scrollbar {
+  display: none;
+}
+
+/* bottone dentro la barra piattaforme (stato FULL) */
+.platform-bar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.15s;
+}
+.platform-bar-btn-active {
+  color: var(--accent);
+  text-shadow: 0 0 12px rgba(168,85,247,0.6);
+}
+
+/*
+  stato COMPACT (dopo scroll):
+  - non c'è più la "pillona"
+  - le piattaforme diventano chip cliccabili inline dentro la navbar
+*/
+.platform-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1rem;
+
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+
+  background-color: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.22);
+  color: var(--text-primary);
+
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+  transition: all 0.15s;
+}
+
+.platform-chip-active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background-color: rgba(168,85,247,0.08);
+  box-shadow: 0 0 20px rgba(168,85,247,0.35);
+}
+
